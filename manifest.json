@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Profile Data Capture",
+  "version": "1.0.0",
+  "description": "Capture LinkedIn profiles and Google Contacts with full DOM data and screenshots",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "downloads",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.linkedin.com/*",
+    "https://contacts.google.com/*",
+    "*://*/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Capture Profile Data"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.linkedin.com/*",
+        "https://contacts.google.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["capture.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
